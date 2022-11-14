@@ -77,6 +77,19 @@ export class PokemonService {
     ];
   }
 
+  /**
+   * auto-completion
+   * display pokemons in regards to written term
+   * @param term
+   * @returns
+   */
+  searchPokemonList(term: string): Observable<Pokemon[]> {
+    return this.http.get<Pokemon[]>(`api/pokemons/?name=${term}`).pipe(
+      tap((response) => this.log(response)),
+      catchError((error) => this.handleError(error, []))
+    );
+  }
+
   //UTILS
 
   private log(response: any) {
